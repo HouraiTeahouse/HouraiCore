@@ -1,0 +1,16 @@
+using System;
+
+namespace HouraiTeahouse {
+
+public static class Argument {
+
+  public static T NotNull<T>(this T obj) where T : class {
+    if (obj == null) {
+      throw new ArgumentNullException();
+    }
+    return obj;
+  }
+
+}
+
+}

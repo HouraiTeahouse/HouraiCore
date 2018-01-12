@@ -1,3 +1,8 @@
 {
-  "name": "HouraiCore"
+    "name": "HouraiCore",
+    "references": [
+        "EditorAttributes"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
 }

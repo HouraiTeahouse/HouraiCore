@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HouraiTeahouse.FantasyCrescendo {
+namespace HouraiTeahouse {
 
 /// <summary>
 /// Provides a resource pool that enables reusing instances of type <see cref="T:T[]"/>. 

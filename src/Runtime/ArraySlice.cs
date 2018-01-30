@@ -7,18 +7,18 @@ namespace HouraiTeahouse {
 
 public struct ArraySlice<T> {
 
-  public readonly IList<T> Array;
+  public readonly T[] Array;
   public uint Count => End - Start;
   public uint Start;
   public uint End;
 
-  public ArraySlice(IList<T> array) : this(array, 0, (uint)array.Count) { }
-  public ArraySlice(IList<T> array, uint end) : this(array, 0, end) { }
-  public ArraySlice(IList<T> array, uint start, uint end) {
+  public ArraySlice(T[] array) : this(array, 0, (uint)array.Length) { }
+  public ArraySlice(T[] array, uint end) : this(array, 0, end) { }
+  public ArraySlice(T[] array, uint start, uint end) {
     if (start < 0 || start >= end) {
       throw new ArgumentOutOfRangeException(nameof(start));
     }
-    if (end < 0 || end > array.Count) {
+    if (end < 0 || end > array.Length) {
       throw new ArgumentOutOfRangeException(nameof(end));
     }
     Array = array;
@@ -53,7 +53,7 @@ public struct ArraySlice<T> {
 
     public bool MoveNext() {
       index++;
-      return index >= Slice.End;
+      return index < Slice.Count;
     }
 
     public T Current => Slice[index];

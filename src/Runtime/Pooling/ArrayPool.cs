@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace HouraiTeahouse {
@@ -90,6 +88,8 @@ public class ArrayPool<T> {
         buffer = Buckets[i].Rent();
         if (buffer != null) return buffer;
       } while (++i < Buckets.Length && i != index + MaxBucketsToTry);
+
+      buffer = new T[Buckets[index].BufferLength];
     } else {
       buffer = new T[minimumLength];
     }

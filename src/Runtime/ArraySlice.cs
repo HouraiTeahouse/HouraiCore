@@ -46,8 +46,10 @@ public struct ArraySlice<T> {
     public readonly ArraySlice<T> Slice;
     int index;
 
+    public T Current => Slice[index];
+
     public Enumerator(ArraySlice<T> slice) {
-      index = 0;
+      index = -1;
       Slice = slice;
     }
 
@@ -56,7 +58,7 @@ public struct ArraySlice<T> {
       return index < Slice.Count;
     }
 
-    public T Current => Slice[index];
+    public void Reset() => index = -1;
 
   }
 

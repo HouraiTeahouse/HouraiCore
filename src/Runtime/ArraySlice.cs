@@ -16,10 +16,10 @@ public struct ArraySlice<T> {
   public ArraySlice(T[] array, uint end) : this(array, 0, end) { }
   public ArraySlice(T[] array, uint start, uint end) {
     if (start < 0 || start >= end) {
-      throw new ArgumentOutOfRangeException(nameof(start));
+      throw new ArgumentOutOfRangeException(nameof(start), start.ToString());
     }
     if (end < 0 || end > array.Length) {
-      throw new ArgumentOutOfRangeException(nameof(end));
+      throw new ArgumentOutOfRangeException(nameof(end), end.ToString());
     }
     Array = array;
     Start = start;

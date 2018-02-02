@@ -117,6 +117,11 @@ public class ArrayPool<T> {
   /// if it's determined that the pool already has enough buffers stored.
   /// </remarks>
   public void Return(T[] array, bool clearArray = false) {
+    if (array == null) {
+      throw new ArgumentNullException(nameof(array));
+    } else if (array.Length == 0) {
+      return;
+    }
     int index = GetBucketIndex(array.Length);
     if (index < Buckets.Length) {
       if (clearArray) {

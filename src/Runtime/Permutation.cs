@@ -34,6 +34,14 @@ public static class Permutation {
     }
   }
 
+  public static IEnumerable<object[]> Generate(IEnumerable<object[]> baseSet, IEnumerable next) {
+    foreach (var set in baseSet) {
+      foreach (var combo in Generate(set, next)) {
+        yield return combo;
+      }
+    }
+  }
+
   /// <summary>
   /// Generates all permutations, selecting one element from every input enumeration.
   /// </summary>

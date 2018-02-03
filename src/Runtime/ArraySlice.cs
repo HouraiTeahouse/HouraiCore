@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace HouraiTeahouse {
 
-public struct ArraySlice<T> {
+public struct ArraySlice<T> : IEnumerable<T> {
 
   public readonly T[] Array;
   public uint Count => End - Start;
@@ -40,13 +40,16 @@ public struct ArraySlice<T> {
   }
 
   public Enumerator GetEnumerator() => new Enumerator(this);
+  IEnumerator<T> IEnumerable<T>.GetEnumerator() => GetEnumerator();
+  IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-  public struct Enumerator {
+  public struct Enumerator : IEnumerator<T> {
 
     public readonly ArraySlice<T> Slice;
     int index;
 
     public T Current => Slice[index];
+    object IEnumerator.Current => Current;
 
     public Enumerator(ArraySlice<T> slice) {
       index = -1;
@@ -59,6 +62,8 @@ public struct ArraySlice<T> {
     }
 
     public void Reset() => index = -1;
+
+    public void Dispose() {}
 
   }
 

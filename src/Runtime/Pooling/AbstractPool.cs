@@ -17,7 +17,7 @@ public abstract class AbstractPool<T> {
     Pool = new Queue<T>();
   }
 
-  public T Rent() {
+  public virtual T Rent() {
     if (Pool.Count <= 0) {
       return CreateNew();
     } else {
@@ -25,9 +25,10 @@ public abstract class AbstractPool<T> {
     }
   }
 
-  public void Return(T obj) {
-    if (Pool.Count + 1 > MaxCapacity) return;
+  public virtual bool Return(T obj) {
+    if (Pool.Count + 1 > MaxCapacity) return false;
     Pool.Enqueue(obj);
+    return true;
   }
 
   public void Prewarm(int count) {

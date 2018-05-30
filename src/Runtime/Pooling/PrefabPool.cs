@@ -52,6 +52,7 @@ public class PrefabPool : PrefabPool<GameObject> {
   private PrefabPool(GameObject prefab) : base(prefab) {}
 
   public static PrefabPool Get(GameObject prefab) {
+    if (prefab == null) return null;
     PrefabPool pool;
     if (prefabs_.TryGetValue(prefab, out pool)) {
       return pool;

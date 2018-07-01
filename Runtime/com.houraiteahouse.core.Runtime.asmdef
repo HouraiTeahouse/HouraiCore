@@ -1,0 +1,8 @@
+{
+    "name": "com.houraiteahouse.core.Runtime",
+    "references": [
+        "com.houraiteahouse.editorattributes.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

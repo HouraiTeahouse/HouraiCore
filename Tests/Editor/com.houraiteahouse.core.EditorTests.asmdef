@@ -1,0 +1,13 @@
+{
+    "name": "com.houraiteahouse.core.EditorTests",
+    "references": [
+        "com.houraiteahouse.core.Runtime"
+    ],
+    "optionalUnityReferences": [
+     	"TestAssemblies"
+    ],
+    "includePlatforms": [
+      "Editor"
+    ],
+    "excludePlatforms": []
+}

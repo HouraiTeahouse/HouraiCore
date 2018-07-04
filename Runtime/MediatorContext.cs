@@ -20,7 +20,7 @@ public class MediatorContext : IDisposable {
     SubscribeImpl(typeof(T), callback);
   }
 
-  public virtual void Subscribe<T>(Mediator.AsyncEvent<T> callback) {
+  public virtual void SubscribeAsync<T>(Mediator.AsyncEvent<T> callback) {
     SubscribeImpl(typeof(T), callback);
   }
 
@@ -76,7 +76,7 @@ public sealed class UnityMeditatorContext : MediatorContext {
     base.Subscribe(checkedCallback);
   }
 
-  public override void Subscribe<T>(Mediator.AsyncEvent<T> callback) {
+  public override void SubscribeAsync<T>(Mediator.AsyncEvent<T> callback) {
     Mediator.AsyncEvent<T> checkedCallback = async (args) => {
       if (isDisposed) return;
       if (unityObject != null && callback != null) {
@@ -85,7 +85,7 @@ public sealed class UnityMeditatorContext : MediatorContext {
         Dispose();
       } 
     };
-    base.Subscribe(checkedCallback);
+    base.SubscribeAsync(checkedCallback);
   }
 
   public override void Dispose() {

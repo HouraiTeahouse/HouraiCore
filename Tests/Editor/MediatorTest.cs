@@ -157,7 +157,7 @@ public class MediatorTest {
   [Test]
   public void can_mix_match_subscriber_types() {
     Mediator mediator = CreateTestMediator();
-    Assert.DoesNotThrow(() => mediator.Subscribe<A>(a => Task.CompletedTask));
+    Assert.DoesNotThrow(() => mediator.SubscribeAsync<A>(a => Task.CompletedTask));
   }
 
 }

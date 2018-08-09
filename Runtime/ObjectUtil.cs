@@ -133,13 +133,16 @@ public static class ObjectUtil {
   /// Destroys the provided object.
   /// 
   /// Uses Object.DestroyImmediate if used in the Editor while the game is not playing.
+  /// This will destroy assets.
+  /// 
   /// Uses Object.Destroy otherwise.
   /// </summary>
   /// <param name="obj">the object to destroy</param>
   public static void Destroy(Object obj) {
+    if (obj == null) return;
 #if UNITY_EDITOR
     if (!EditorApplication.isPlayingOrWillChangePlaymode) {
-      Object.DestroyImmediate(obj);
+      Object.DestroyImmediate(obj, true);
     } else
 #endif
     {

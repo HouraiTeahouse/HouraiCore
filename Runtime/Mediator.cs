@@ -49,7 +49,7 @@ public class Mediator {
   /// <param name="callback"> the handler to call when an event of type <typeparamref name="T" /> is published. </param>
   /// <exception cref="ArgumentNullException"> <paramref name="callback" /> is null </exception>
   public void Subscribe<T>(Event<T> callback) => Subscribe(typeof(T), Argument.NotNull(callback));
-  public void Subscribe<T>(AsyncEvent<T> callback) => Subscribe(typeof(T), Argument.NotNull(callback));
+  public void SubscribeAsync<T>(AsyncEvent<T> callback) => Subscribe(typeof(T), Argument.NotNull(callback));
   internal void Subscribe(Type type, Delegate callback) {
     Assert.IsNotNull(type);
     Assert.IsNotNull(callback);
@@ -72,7 +72,7 @@ public class Mediator {
   /// <param name="callback"> the handler to remove </param>
   /// <exception cref="ArgumentNullException"> <paramref name="callback" /> is null </exception>
   public void Unsubscribe<T>(Event<T> callback) { Unsubscribe(typeof(T), Argument.NotNull(callback)); }
-  public void Unsubscribe<T>(AsyncEvent<T> callback) { Unsubscribe(typeof(T), Argument.NotNull(callback)); }
+  public void UnsubscribeAsync<T>(AsyncEvent<T> callback) { Unsubscribe(typeof(T), Argument.NotNull(callback)); }
   internal void Unsubscribe(Type type, Delegate callback) {
     List<Delegate> typeSubscribers;
     if (!_subscribers.TryGetValue(type, out typeSubscribers))

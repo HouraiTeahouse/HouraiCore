@@ -29,7 +29,7 @@ public static class Permutation {
     var stack = new LinkedList<object>(baseSet.OfType<object>());
     foreach (var obj in next) {
       stack.AddLast(obj);
-      yield return stack.ToArray();
+      yield return Flatten(stack).ToArray();
       stack.RemoveLast();
     }
   }
@@ -38,6 +38,19 @@ public static class Permutation {
     foreach (var set in baseSet) {
       foreach (var combo in Generate(set, next)) {
         yield return combo;
+      }
+    }
+  }
+
+  static IEnumerable<object> Flatten(IEnumerable objs) {
+    foreach (var obj in objs) {
+      var subenumerable = obj as IEnumerable;
+      if (subenumerable != null) {
+        foreach (var subitem in Flatten(subenumerable)) {
+          yield return subitem;
+        }
+      } else {
+        yield return obj;
       }
     }
   }

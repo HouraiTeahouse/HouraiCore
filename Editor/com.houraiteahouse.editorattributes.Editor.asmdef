@@ -1,10 +1,14 @@
 {
-    "name": "com.houraiteahouse.core.Runtime",
-    "references": [],
+    "name": "com.houraiteahouse.core.Editor",
+    "references": [
+        "com.houraiteahouse.core.Runtime"
+    ],
     "optionalUnityReferences": [],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
-    "allowUnsafeCode": true,
+    "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,

@@ -2,5 +2,11 @@
   "author": "Hourai Teahouse",
   "name": "com.houraiteahouse.core",
   "displayName": "Hourai Teahouse Core Libraries",
-  "version": "0.0.1"
+  "version": "1.0.0",
+  "homepage": "https://github.com/HouraiTeahouse/HouraiCore",
+  "bugs": "https://github.com/HouraiTeahouse/HouraiCore/issues",
+  "repository": "github:HouraiTeahouse/HouraiCore",
+  "publishConfig": {
+    "registry": "https://upm.houraiteahouse.net"
+  }
 }

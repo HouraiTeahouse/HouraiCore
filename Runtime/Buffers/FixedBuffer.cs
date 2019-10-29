@@ -18,7 +18,7 @@ public unsafe readonly ref struct FixedBuffer {
 
     public FixedBuffer(byte* start, byte* end) {
         Assert.IsTrue(start != null && end != null);
-        Assert.IsTrue(start < end);
+        Assert.IsTrue(start <= end);
         Start = start;
         End = end;
     }

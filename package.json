@@ -8,5 +8,8 @@
   "repository": "github:HouraiTeahouse/HouraiCore",
   "publishConfig": {
     "registry": "https://upm.houraiteahouse.net"
+  },
+  "dependencies": {
+    "com.unity.inputsystem": "1.0.0-preview.1"
   }
 }

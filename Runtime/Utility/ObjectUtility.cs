@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 using Object = UnityEngine.Object;
-
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -11,7 +11,7 @@ namespace HouraiTeahouse {
 /// <summary>
 /// A set of generalized helper methods for working with Unity Objects.
 /// </summary>
-public static class ObjectUtil {
+public static class ObjectUtility {
 
   /// <summary>
   /// Sets the object's enabled/active state. Works with GameObjects and Behaviors.
@@ -34,6 +34,23 @@ public static class ObjectUtil {
   }
 
   /// <summary>
+  /// Gets a component or fails with an AssertionException.
+  /// </summary>
+  /// <param name="obj">the object to query</param>
+  /// <returns>the fetched object.</returns>
+  public static T GetOrFail<T>(Object obj) where T : class {
+    if (obj == null) throw new NullReferenceException();
+    var gameObject = obj as GameObject;
+    var component = obj as Component;
+    if (component != null) {
+      gameObject = component.gameObject;
+    }
+    var ret = gameObject.GetComponent<T>();
+    Assert.IsNotNull(ret);
+    return ret;
+  }
+
+  /// <summary>
   /// Gets the first component of a type in the sub-hierarchy of the object.
   /// A generalized GetComponentInChildren.
   /// 
@@ -42,8 +59,8 @@ public static class ObjectUtil {
   /// <param name="obj">the root object to search from.</param>
   /// <typeparam name="T">the type of the component to search for.</typeparam>
   /// <returns>the located component, null if <paramref cref="obj"/> is not an GameObject or component or if none is found</returns>
-  public static T GetFirst<T>(Object obj) where T : Component {
-    if (obj == null) return null;
+  public static T GetFirst<T>(Object obj) {
+    if (obj == null) throw new NullReferenceException();
     var gameObject = obj as GameObject;
     var component = obj as Component;
     if (component != null) {
@@ -52,7 +69,7 @@ public static class ObjectUtil {
     if (gameObject != null) {
       return gameObject.GetComponentInChildren<T>();
     }
-    return null;
+    return default(T);
   }
 
   /// <summary>
@@ -64,8 +81,8 @@ public static class ObjectUtil {
   /// <param name="obj">the root object to search from.</param>
   /// <typeparam name="T">the type of the component to search for.</typeparam>
   /// <returns>the located components, empty if <paramref cref="obj"/> is not an GameObject or component or if none is found</returns>
-  public static T[] GetAll<T>(Object obj) where T : Component {
-    if (obj == null) return new T[0];
+  public static T[] GetAll<T>(Object obj) {
+    if (obj == null) throw new NullReferenceException();
     var gameObject = obj as GameObject;
     var component = obj as Component;
     if (component != null) {
@@ -87,7 +104,7 @@ public static class ObjectUtil {
   /// <param name="type">the type of the component to search for.</param>
   /// <returns>the located components, empty if <paramref cref="obj"/> is not an GameObject or component or if none is found</returns>
   public static Component[] GetAll(Object obj, Type type) {
-    if (obj == null) return new Component[0];
+    if (obj == null) throw new NullReferenceException();
     var gameObject = obj as GameObject;
     var component = obj as Component;
     if (component != null) {
@@ -108,7 +125,8 @@ public static class ObjectUtil {
   /// </summary>
   /// <param name="obj">the root object to search from.</param>
   /// <param name="type">the type of the component to search for.</param>
-  public static void DestroyAll<T>(Object obj) where T : Component {
+  public static void DestroyAll<T>(Object obj) where T : Object {
+    if (obj == null) throw new NullReferenceException();
     foreach (var comp in GetAll<T>(obj)) {
       Destroy(comp);
     }
@@ -124,6 +142,7 @@ public static class ObjectUtil {
   /// <param name="obj">the root object to search from.</param>
   /// <param name="type">the type of the component to search for.</param>
   public static void DestroyAll(Object obj, Type type) {
+    if (obj == null) throw new NullReferenceException();
     foreach (var comp in GetAll(obj, type)) {
       Destroy(comp);
     }

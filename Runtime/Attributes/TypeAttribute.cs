@@ -7,7 +7,7 @@ namespace HouraiTeahouse.Attributes {
 public class TypeAttribute :PropertyAttribute {
 
 	public Type BaseType { get; }
-  public Type Default { get; set; }
+	public Type Default { get; set; }
 	public string CommonName { get; set; }
 
 	public TypeAttribute(Type baseType) {

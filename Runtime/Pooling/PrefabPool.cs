@@ -72,7 +72,7 @@ public class PrefabPool : PrefabPool<GameObject> {
   public override bool Return(GameObject obj) {
     var result = base.Return(obj);
     if (result) {
-      ObjectUtil.SetActive(obj, false);
+      ObjectUtility.SetActive(obj, false);
     } else {
       Object.Destroy(obj);
     }

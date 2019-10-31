@@ -11,15 +11,14 @@ namespace HouraiTeahouse.Attributes {
 [CustomPropertyDrawer(typeof(TypeAttribute))]
 public class TypeAttributeDrawer : PropertyDrawer {
 
-	static Dictionary<Type, TypeInfo> TypeCache;
+	static Dictionary<Type, TypeInfo> _cache;
+	static TypeAttributeDrawer() {
+		_cache = new Dictionary<Type, TypeInfo>();
+	}
 
 	class TypeInfo {
 		public string[] Names;
 		public string[] FullNames;
-	}
-
-	static TypeAttributeDrawer() {
-		TypeCache = new Dictionary<Type, TypeInfo>();
 	}
 
 	TypeInfo Options;
@@ -33,11 +32,10 @@ public class TypeAttributeDrawer : PropertyDrawer {
 		}
 
 		EditorGUI.BeginProperty(position, label, property);
-		var targetAttr = attribute as TypeAttribute;
-		TypeInfo types = Options ?? GetSubtypes(targetAttr.BaseType);
+		TypeInfo types = Options ?? GetSubtypes(typeAttribute.BaseType);
 		var index = Array.IndexOf(Options.FullNames, property.stringValue);
 		if (index < 0) {
-			index = Mathf.Max(0, Array.IndexOf(Options.FullNames, targetAttr.Default.FullName));
+			index = Mathf.Max(0, Array.IndexOf(Options.FullNames, typeAttribute.Default.FullName));
 		}
 		index = EditorGUI.Popup(position, label.text, index, Options.Names);
 		property.stringValue = types.FullNames[index];
@@ -46,9 +44,9 @@ public class TypeAttributeDrawer : PropertyDrawer {
 
 	TypeInfo GetSubtypes(Type baseType) {
 		TypeInfo types;
-		if (!TypeCache.TryGetValue(baseType, out types)) {
+		if (!_cache.TryGetValue(baseType, out types)) {
 			types = GetDerivedTypes(baseType);
-			TypeCache[baseType] = types;
+			_cache[baseType] = types;
 		}
 		if (typeAttribute.CommonName != null) {
 			types.Names = types.Names.Select(n => {
@@ -61,10 +59,15 @@ public class TypeAttributeDrawer : PropertyDrawer {
 	}
 
 	static TypeInfo GetDerivedTypes(Type baseType) {
-		var types = (from assembly in AppDomain.CurrentDomain.GetAssemblies()
-								 from type in assembly.GetTypes()
-								 where !type.IsAbstract && baseType.IsAssignableFrom(type)
-								 select type).ToArray();
+#if UNITY_2019_2_OR_NEWER
+		TypeCache.TypeCollection allTypes = TypeCache.GetTypesDerivedFrom(baseType);
+#else
+		var allTypes = (from assembly in AppDomain.CurrentDomain.GetAssemblies()
+						from type in assembly.GetTypes()
+						where !type.IsAbstract && baseType.IsAssignableFrom(type)
+						select type);
+#endif
+		var types = allTypes.Where(t => !t.IsAbstract).ToArray();
 		return new TypeInfo {
 			Names = types.Select(t => t.Name).ToArray(),
 			FullNames = types.Select(t => t.FullName).ToArray()

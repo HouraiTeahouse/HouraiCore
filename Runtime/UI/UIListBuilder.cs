@@ -79,6 +79,7 @@ public abstract class UIListBuilder<T, TParam> : MonoBehaviour where T : Compone
             idx++;
         }
         ActiveCount = idx;
+        Debug.LogWarning(_displays);
         for (; idx < _displays.Count; idx++) {
             _displays[idx].gameObject.SetActive(false);
         }

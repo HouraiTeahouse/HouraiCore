@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-namespace HouraiTeahouse {
+namespace HouraiTeahouse.Buffers {
 
 /// <summary>
 /// Static class for manipulating individual bits in a value.

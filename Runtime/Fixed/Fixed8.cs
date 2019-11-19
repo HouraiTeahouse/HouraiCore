@@ -22,7 +22,7 @@ public readonly struct Fixed8 {
     public static Fixed8 MinValue => (byte)0;
     public static Fixed8 Zero => 128;
 
-    public Fixed8(byte rawValue) {
+    Fixed8(byte rawValue) {
         RawValue = rawValue;
     }
 

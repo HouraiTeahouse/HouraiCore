@@ -1,6 +1,13 @@
-# HouraiCore
+# Hourai Teahouse Core Libraries for Unity
 
 A core utilities library underpinning most Hourai Teahouse projects in Unity 3D.
+
+## Standard Libraries
+Unity does not include some key items for `System.*` binaries. This package includes
+the following:
+
+ * [System.Buffers](https://www.nuget.org/packages/System.Buffers/)
+ * [System.Memory](https://www.nuget.org/packages/System.Memory/)
 
 ## Mediator
 An event bus for subscribing to and publishing events.
@@ -24,18 +31,4 @@ Mediator.Global.Publish(new LogEvent { Message = "Hello World!" });
 
 // Unsubscribing from events.
 Mediator.Global.Unsubscribe(...);
-```
-## ArrayPool
-A shared pool of arrays to lower GC pressure by reusing arrays. Arrays are rented from the pool and then returned to the pool when no longer in use. Arrays do not need to be returned to the pool to function properly, but this will lower overall performance by decreasing reuse.
-
-```csharp
-// Renting an array of a given size. Note: the array may be bigger 
-// than the provided size.
-Collider[] rentedArray = ArrayPool<Collider>.Shared.Rent(256);
-
-// Work with the array.
-var hitCount = Phyics.OverlapSphereNoAlloc(..., rentedArray, ...);
-
-// Return the array to the pool.
-ArrayPool<Collide>.Shared.Return(rentedArray);
 ```

@@ -17,11 +17,13 @@ public sealed class UniqueObject : MonoBehaviour {
   /// </summary>
   static Dictionary<int, UniqueObject> AllIDs;
 
+  #pragma warning disable 0649
   [SerializeField, ReadOnly, Tooltip("The unique id for this object")]
   int _id;
 
   [SerializeField]
   bool _dontDestroyOnLoad;
+  #pragma warning restore 0649
 
   /// <summary> 
   /// The unique ID of the object. 

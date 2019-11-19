@@ -104,10 +104,13 @@ public unsafe static class Crc32 {
     /// <summary>
     /// Computes the CRC32 checksum from a buffer.
     /// </summary>
-    /// <param name="buffer">the fixed size buffer to compute the buffer</param>
+    /// <param name="buffer">the buffer to compute the checksum for</param>
     /// <returns>the CRC32 checksum</returns>
-    public static uint ComputeChecksum(FixedBuffer buffer) =>
-        ComputeChecksum(buffer.Start, buffer.Size);
+    public static uint ComputeChecksum(ReadOnlySpan<byte> buffer) {
+        fixed (byte* ptr = buffer) {
+            return ComputeChecksum(ptr, buffer.Length);
+        }
+    }
 
     /// <summary>
     /// Computes the CRC32 checksum from a buffer.
